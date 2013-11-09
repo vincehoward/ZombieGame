@@ -16,7 +16,10 @@ class Survivor(pygame.sprite.DirtySprite):
         self.image = pygame.Surface([10, 10])
         self.image.fill((white))
         self.rect = self.image.get_rect()
-        # self.image.load('(os.getenv('CURRENT_DIR))', '/resources/pictures/survivor.jpg')
+        """
+            self.image.load('(os.getenv('CURRENT_DIR))',  \
+            '/resources/pictures/survivor.jpg')
+        """
         self.rect.top = y
         self.rect.left = x
         player = self

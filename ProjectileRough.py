@@ -38,7 +38,8 @@ class Projectile(pygame.sprite.DirtySprite):
 
         self.rect.move_ip((self.x_velocity, self.y_velocity))
 
-        collide = pygame.sprite.spritecollide(self, zombie, False)
+        collide =  \
+            pygame.sprite.spritecollide(self, zombie, False)
 
         if self.rect.left == z_x and self.rect.top == z_y:
             self.dirty = 0
@@ -61,12 +62,15 @@ class Projectile(pygame.sprite.DirtySprite):
             if collide:
                 self.dirty = 0
 
-        if self.rect.top > (s_y + 10) or self.rect.top < (s_y - 10):
+        if self.rect.top > (s_y + 10)  \
+           or self.rect.top < (s_y - 10):
             self.dirty = 0
-        elif self.rect.top > (s_y + 10) or self.rect.top < (s_y - 10):
+        elif self.rect.top > (s_y + 10)  \
+             or self.rect.top < (s_y - 10):
             self.dirty = 0
 
-        collide = pygame.sprite.spritecollide(self, wallList, False)
+        collide =  \
+            pygame.sprite.spritecollide(self, wallList, False)
         if collide:
             self.rect.left = old_x
 
@@ -74,7 +78,8 @@ class Projectile(pygame.sprite.DirtySprite):
         new_y = old_y + self.change_y
         self.rect.top = new_y
 
-        collide = pygame.sprite.spritecollide(self, wallList, False)
+        collide =  \
+            pygame.sprite.spritecollide(self, wallList, False)
         if collide:
             self.rect.top = old_y
 

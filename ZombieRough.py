@@ -34,7 +34,8 @@ class Zombie(pygame.sprite.DirtySprite):
 
         self.rect.move_ip((self.x_velocity, self.y_velocity))
 
-        collide = pygame.sprite.spritecollide(self, wallList, False)
+        collide =  \
+            pygame.sprite.spritecollide(self, wallList, False)
 
         if self.rect.top < s_y:
             self.y_velocity = 1
@@ -49,7 +50,8 @@ class Zombie(pygame.sprite.DirtySprite):
         else:
             self.y_velocity = 0
 
-        collide = pygame.sprite.spritecollide(self, wallList, False)
+        collide = \
+            pygame.sprite.spritecollide(self, wallList, False)
 
         if  self.rect.left > s_x:
             self.x_velocity = -1
@@ -65,7 +67,8 @@ class Zombie(pygame.sprite.DirtySprite):
             self.x_velocity = 0
 
 
-        collide = pygame.sprite.spritecollide(self, wallList, False)
+        collide =  \
+            pygame.sprite.spritecollide(self, wallList, False)
         if collide:
             self.rect.left = old_x
  
@@ -73,6 +76,7 @@ class Zombie(pygame.sprite.DirtySprite):
         new_y = old_y + self.change_y
         self.rect.top = new_y
 
-        collide = pygame.sprite.spritecollide(self, wallList, False)
+        collide =  \
+            pygame.sprite.spritecollide(self, wallList, False)
         if collide:
             self.rect.top = old_y

@@ -37,7 +37,8 @@ def main():
     #sprites
     survivor = Survivor(50, 50, )
     reticle = Reticle()
-    zombie = Zombie(random.randint(0, 1280), random.randint(0, 1024))
+    zombie = Zombie(random.randint(0, 1280), \
+                    random.randint(0, 1024))
     projectile = Projectile(0, 0)
 
     #walls
@@ -46,7 +47,10 @@ def main():
     rwall = Map(1270, 0, 10, 1024)
     bwall = Map(0, 1014, 1270, 10)
 
-    allsprites = pygame.sprite.LayeredDirty((lwall, twall, rwall, bwall, survivor, reticle, zombie, projectile))
+    allsprites = pygame.sprite.LayeredDirty((lwall, \
+                 twall, rwall, bwall, survivor, \
+                 reticle, zombie, projectile))
+
     allsprites.clear(screen, background)
 
     clock = pygame.time.Clock()
