@@ -34,49 +34,24 @@ class Zombie(pygame.sprite.DirtySprite):
 
         self.rect.move_ip((self.x_velocity, self.y_velocity))
 
-        collide =  \
-            pygame.sprite.spritecollide(self, wallList, False)
-
-        if self.rect.top < s_y:
-            self.y_velocity = 1
-            if collide:
+        collided =  \
+            functools.partial(pygame.sprite.spritecollide, self)
+        
+        for x in sprites:
+            if collided (x):
                 self.rect.top = old_y
-                self.y_velocity = 0
-        elif  self.rect.top > s_y:
-            self.y_velocity = -1
-            if collide:
-                self.rect.top = old_y
-                self.y_velocity = 0
-        else:
-            self.y_velocity = 0
-
-        collide = \
-            pygame.sprite.spritecollide(self, wallList, False)
-
-        if  self.rect.left > s_x:
-            self.x_velocity = -1
-            if collide:
                 self.rect.left = old_x
-                self.x_velocity = 0
-        elif self.rect.left < s_x:
-            self.x_velocity = 1
-            if collide:
-                self.rect.left = old_x
-                self.x_velocity = 0
-        else:
-            self.x_velocity = 0
+            else:
+                if self.rect.top < s_y:
+                    self.y_velocity = 1
+                elif  self.rect.top > s_y:
+                    self.y_velocity = -1
+                else:
+                    self.y_velocity = 0
 
-
-        collide =  \
-            pygame.sprite.spritecollide(self, wallList, False)
-        if collide:
-            self.rect.left = old_x
- 
-        old_y = self.rect.top
-        new_y = old_y + self.change_y
-        self.rect.top = new_y
-
-        collide =  \
-            pygame.sprite.spritecollide(self, wallList, False)
-        if collide:
-            self.rect.top = old_y
+                if  self.rect.left > s_x:
+                    self.x_velocity = -1
+                elif self.rect.left < s_x:
+                    self.x_velocity = 1
+                else:
+                    self.x_velocity = 0

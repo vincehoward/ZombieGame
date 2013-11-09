@@ -72,10 +72,7 @@ def main():
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if mouseClick == button1:
                     projectile.fire(s_x, s_y)
-                    projectile.m_x = m_x
-                    projectile.m_y = m_y
-                    projectile.s_x = s_x
-                    projectile.s_y = s_y
+
 
         allsprites.update()
         rects = allsprites.draw(screen)

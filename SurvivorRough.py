@@ -8,8 +8,6 @@ class Survivor(pygame.sprite.DirtySprite):
 
     change_x = 0
     change_y = 0
-    survivor_x = 0
-    survivor_y = 0
 
     def __init__(self, x, y):
         pygame.sprite.DirtySprite.__init__(self)
@@ -22,9 +20,6 @@ class Survivor(pygame.sprite.DirtySprite):
         """
         self.rect.top = y
         self.rect.left = x
-        player = self
-        player.x = x
-        player.y = y
 
     def change_dir(self, event):
         if event.type == pygame.KEYDOWN:
@@ -51,24 +46,21 @@ class Survivor(pygame.sprite.DirtySprite):
         Survivor.change_x += x
         Survivor.change_y += y
 
-    def update(self, wallList):
+    def update(self):
         self.dirty = 1
 
         old_x = self.rect.left
         new_x = old_x + self.change_x
         self.rect.left = new_x
 
-        collide = pygame.sprite.spritecollide(self, wallList, False)
-        if collide:
-            self.rect.left = old_x
- 
         old_y = self.rect.top
         new_y = old_y + self.change_y
         self.rect.top = new_y
 
-        collide = pygame.sprite.spritecollide(self, wallList, False)
-        if collide:
-            self.rect.top = old_y
-
-        Survivor.survivor_x = self.rect.left
-        Survivor.survivor_y = self.rect.top
+        collided =  \
+            functools.partial(pygame.sprite.spritecollide, self)
+        
+        for x in sprites:
+            if collided (x):
+                self.rect.left = old_x
+                self.rect.top = old_y
