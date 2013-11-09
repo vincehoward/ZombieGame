@@ -1,28 +1,32 @@
-# Zombie module
+# Projectile module
 
 import pygame, random
 
-green = (0, 255, 0)
+grey = (55, 55, 55)
 
-class Zombie(pygame.sprite.DirtySprite):
+class Projectile(pygame.sprite.DirtySprite):
 
     change_x = 0
     change_y = 0
-    zombie_x = 0
-    zombie_y = 0
     
     def __init__(self, x, y):
         pygame.sprite.DirtySprite.__init__(self) 
-        self.image = pygame.Surface([10, 10])
-        self.image.fill(green)
+        self.image = pygame.Surface([2, 5])
+        self.image.fill(grey)
         self.rect = self.image.get_rect()
         self.rect.top = y
         self.rect.left = x
         self.x_velocity = 0
         self.y_velocity = 0
-
-    def update(self, wallList, s_x, s_y):
+        m_x = 0
+        m_y = 0
+        s_x = 0
+        s_y = 0
+    
+    def fired(self):
         self.dirty = 1
+
+    def update(self, wallList, z_x, z_y):
 
         old_x = self.rect.left
         new_x = old_x + self.change_x
@@ -36,39 +40,36 @@ class Zombie(pygame.sprite.DirtySprite):
 
         collide = pygame.sprite.spritecollide(self, wallList, False)
 
-        if self.rect.top < s_y:
-            self.y_velocity = 1
-            if collide:
-                self.rect.top = old_y
-                self.y_velocity = 0
-        elif  self.rect.top > s_y:
-            self.y_velocity = -1
-            if collide:
-                self.rect.top = old_y
-                self.y_velocity = 0
-        else:
-            self.y_velocity = 0
+        if self.rect.left == z_x and self.rect.top == z_y:
+            self.dirty = 0
 
-        collide = pygame.sprite.spritecollide(self, wallList, False)
-
-        if  self.rect.left > s_x:
-            self.x_velocity = -1
+        if  self.rect.left > m_x:
+            self.x_velocity = -5
             if collide:
-                self.rect.left = old_x
-                self.x_velocity = 0
-        elif self.rect.left < s_x:
-            self.x_velocity = 1
+                self.dirty = 0
+        elif self.rect.left < m_x:
+            self.x_velocity = 5
             if collide:
-                self.rect.left = old_x
-                self.x_velocity = 0
-        else:
-            self.x_velocity = 0
+                self.dirty = 0
 
+        if self.rect.top > m_y:
+            self.y_velocity = -5
+            if collide:
+                self.dirty = 0
+        elif self.rect.top < m_y:
+            self.y_velocity = 5
+            if collide:
+                self.dirty = 0
+
+        if self.rect.top > (s_y + 10) or self.rect.top < (s_y - 10):
+            self.dirty = 0
+        elif self.rect.top > (s_y + 10) or self.rect.top < (s_y - 10):
+            self.dirty = 0
 
         collide = pygame.sprite.spritecollide(self, wallList, False)
         if collide:
             self.rect.left = old_x
- 
+
         old_y = self.rect.top
         new_y = old_y + self.change_y
         self.rect.top = new_y

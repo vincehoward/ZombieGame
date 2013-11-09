@@ -4,7 +4,7 @@ import pygame
 
 white = (255, 255, 255)
 
-class Survivor(pygame.sprite.Sprite):
+class Survivor(pygame.sprite.DirtySprite):
 
     change_x = 0
     change_y = 0
@@ -12,10 +12,11 @@ class Survivor(pygame.sprite.Sprite):
     survivor_y = 0
 
     def __init__(self, x, y):
-        pygame.sprite.Sprite.__init__(self)
+        pygame.sprite.DirtySprite.__init__(self)
         self.image = pygame.Surface([10, 10])
         self.image.fill((white))
         self.rect = self.image.get_rect()
+        # self.image.load('(os.getenv('CURRENT_DIR))', '/resources/pictures/survivor.jpg')
         self.rect.top = y
         self.rect.left = x
         player = self
@@ -48,6 +49,8 @@ class Survivor(pygame.sprite.Sprite):
         Survivor.change_y += y
 
     def update(self, wallList):
+        self.dirty = 1
+
         old_x = self.rect.left
         new_x = old_x + self.change_x
         self.rect.left = new_x

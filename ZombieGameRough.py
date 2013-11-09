@@ -5,6 +5,7 @@ from SurvivorRough import Survivor
 from ReticleRough import Reticle
 from MapRough import Map
 from ZombieRough import Zombie
+from ProjectileRough import Projectile
 
 black = (0, 0, 0)
 white = (255, 255, 255)
@@ -22,55 +23,60 @@ background.fill(black)
 
 pygame.mouse.set_visible(False)
 
-#Map.gen()
+#Map.gen() here sometime
+
+#sprites
 survivor = Survivor(50, 50, )
-movingsprites = pygame.sprite.RenderPlain()
-movingsprites.add(survivor)
-
 reticle = Reticle()
-movingsprites.add(reticle)
-
 zombie = Zombie(random.randint(0, 1280), random.randint(0, 1024))
-movingsprites.add(zombie)
+projectile = Projectile(0, 0)
 
-wallList = pygame.sprite.RenderPlain()
-#left wall
-wall = Map(0, 0, 10, 1024)
-wallList.add(wall)
-#top wall
-wall = Map(10, 0, 1270, 10)
-wallList.add(wall)
-#right wall
-wall = Map(1270, 0, 10, 1024)
-wallList.add(wall)
-#bottom wall
-wall = Map(0, 1014, 1270, 10)
-wallList.add(wall)
+#walls
+lwall = Map(0, 0, 10, 1024)
+twall = Map(10, 0, 1270, 10)
+rwall = Map(1270, 0, 10, 1024)
+bwall = Map(0, 1014, 1270, 10)
+
+allsprites = pygame.sprite.LayeredDirty((lwall, twall, rwall, bwall, survivor, reticle, zombie, projectile))
+
+wallList = (lwall, twall, rwall, bwall)
+
+s_x = Survivor.survivor_x
+s_y = Survivor.survivor_y
+
+z_x = Zombie.zombie_x
+z_y = Zombie.zombie_y
 
 def main():
     done = False
 
+    allsprites.clear(screen, background)
+
     while done == False:
+        mousePos = pygame.mouse.get_pos()
+        m_x = mousePos[0]
+        m_y = mousePos[1]
+        mouseClick = pygame.mouse.get_pressed()
+
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 done = True
-            
+
             if event.type == pygame.KEYDOWN or pygame.KEYUP:
                 survivor.change_dir(event)
 
-        #Map.update(screen)
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if mouseClick == button1:
+                    projectile.fire(s_x, s_y)
+                    projectile.m_x = m_x
+                    projectile.m_y = m_y
+                    projectile.s_x = s_x
+                    projectile.s_y = s_y
 
-        survivor.update(wallList)
-        zombie.update(wallList, Survivor.survivor_x, Survivor.survivor_y)
-        mousePos = pygame.mouse.get_pos()
-        reticle.update(mousePos)
+        allsprites.update()
+        rects = allsprites.draw(screen)
+        pygame.display.update(rects)
         
-        screen.fill(black)
-        
-        movingsprites.draw(screen)
-        wallList.draw(screen)
-        
-        pygame.display.flip()
         clock.tick(60)
 
 if __name__ == '__main__': main()
