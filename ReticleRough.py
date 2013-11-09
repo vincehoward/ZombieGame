@@ -11,7 +11,7 @@ class Reticle(pygame.sprite.DirtySprite):
         self.image.fill((red))
         self.rect = self.image.get_rect()
         
-    def update(self, m_x, m_y):
+    def update(self):
+        pos = pygame.mouse.get_pos()
+        self.rect.midtop = pos
         self.dirty = 1
-        self.rect.left = m_x
-        self.rect.top = m_y

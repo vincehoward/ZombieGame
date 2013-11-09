@@ -18,10 +18,12 @@ def main():
     clock = pygame.time.Clock()
 
     pygame.display.set_caption('Zombie Game')
-    screen = pygame.display.set_mode([1280, 1024])
+    screen = pygame.display.set_mode((1280, 1024))
     background = pygame.Surface(screen.get_size())
     background = background.convert()
     background.fill(black)
+    screen.blit(background, (0, 0))
+    pygame.display.flip()
 
     pygame.mouse.set_visible(False)
 
@@ -47,7 +49,10 @@ def main():
     allsprites = pygame.sprite.LayeredDirty((lwall, twall, rwall, bwall, survivor, reticle, zombie, projectile))
     allsprites.clear(screen, background)
 
-    while done == False:
+    clock = pygame.time.Clock()
+
+    done = False
+    while not done:
         mousePos = pygame.mouse.get_pos()
         m_x = mousePos[0]
         m_y = mousePos[1]
@@ -57,10 +62,10 @@ def main():
             if event.type == pygame.QUIT:
                 done = True
 
-            if event.type == pygame.KEYDOWN or pygame.KEYUP:
+            elif event.type == pygame.KEYDOWN or pygame.KEYUP:
                 survivor.change_dir(event)
 
-            if event.type == pygame.MOUSEBUTTONDOWN:
+            elif event.type == pygame.MOUSEBUTTONDOWN:
                 if mouseClick == button1:
                     projectile.fire(s_x, s_y)
                     projectile.m_x = m_x
@@ -72,6 +77,7 @@ def main():
         rects = allsprites.draw(screen)
         pygame.display.update(rects)
         
-        clock.tick(60)
+    pygame.quit()
 
-if __name__ == '__main__': main()
+if __name__ == '__main__': 
+    main()
