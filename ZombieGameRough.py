@@ -12,44 +12,39 @@ white = (255, 255, 255)
 red = (255, 0, 0)
 green = (0, 255, 0)
 
-pygame.init()
-clock = pygame.time.Clock()
-
-pygame.display.set_caption('Zombie Game')
-screen = pygame.display.set_mode([1280, 1024])
-background = pygame.Surface(screen.get_size())
-background = background.convert()
-background.fill(black)
-
-pygame.mouse.set_visible(False)
-
-#Map.gen() here sometime
-
-#sprites
-survivor = Survivor(50, 50, )
-reticle = Reticle()
-zombie = Zombie(random.randint(0, 1280), random.randint(0, 1024))
-projectile = Projectile(0, 0)
-
-#walls
-lwall = Map(0, 0, 10, 1024)
-twall = Map(10, 0, 1270, 10)
-rwall = Map(1270, 0, 10, 1024)
-bwall = Map(0, 1014, 1270, 10)
-
-allsprites = pygame.sprite.LayeredDirty((lwall, twall, rwall, bwall, survivor, reticle, zombie, projectile))
-
-wallList = (lwall, twall, rwall, bwall)
-
-s_x = Survivor.survivor_x
-s_y = Survivor.survivor_y
-
-z_x = Zombie.zombie_x
-z_y = Zombie.zombie_y
-
 def main():
+
+    pygame.init()
+    clock = pygame.time.Clock()
+
+    pygame.display.set_caption('Zombie Game')
+    screen = pygame.display.set_mode([1280, 1024])
+    background = pygame.Surface(screen.get_size())
+    background = background.convert()
+    background.fill(black)
+
+    pygame.mouse.set_visible(False)
+
+    s_x = Survivor.survivor_x
+    s_y = Survivor.survivor_y
+    z_x = Zombie.zombie_x
+    z_y = Zombie.zombie_y
+
     done = False
 
+    #sprites
+    survivor = Survivor(50, 50, )
+    reticle = Reticle()
+    zombie = Zombie(random.randint(0, 1280), random.randint(0, 1024))
+    projectile = Projectile(0, 0)
+
+    #walls
+    lwall = Map(0, 0, 10, 1024)
+    twall = Map(10, 0, 1270, 10)
+    rwall = Map(1270, 0, 10, 1024)
+    bwall = Map(0, 1014, 1270, 10)
+
+    allsprites = pygame.sprite.LayeredDirty((lwall, twall, rwall, bwall, survivor, reticle, zombie, projectile))
     allsprites.clear(screen, background)
 
     while done == False:

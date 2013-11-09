@@ -11,7 +11,7 @@ class Projectile(pygame.sprite.DirtySprite):
     
     def __init__(self, x, y):
         pygame.sprite.DirtySprite.__init__(self) 
-        self.image = pygame.Surface([2, 5])
+        self.image = pygame.Surface([2, 2])
         self.image.fill(grey)
         self.rect = self.image.get_rect()
         self.rect.top = y
