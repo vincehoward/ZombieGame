@@ -26,10 +26,6 @@ class Survivor(pygame.sprite.DirtySprite):
         """
         self.rect.top = y
         self.rect.left = x
-        self.old_x = self.rect.left
-        self.new_x = self.old_x + self.change_x
-        self.old_y = self.rect.top
-        self.new_y = self.old_y + self.change_y
 
     def change_dir(self, event):
         if event.type == pygame.KEYDOWN:
@@ -66,7 +62,9 @@ class Survivor(pygame.sprite.DirtySprite):
 
     def update(self):
         self.dirty = 1
+        self.old_x = self.rect.left
+        self.new_x = self.old_x + self.change_x
+        self.old_y = self.rect.top
+        self.new_y = self.old_y + self.change_y
         self.rect.left = self.new_x
         self.rect.top = self.new_y
-
-

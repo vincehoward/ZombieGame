@@ -25,10 +25,6 @@ class Projectile(pygame.sprite.DirtySprite):
         self.rect.left = x
         self.x_velocity = 0
         self.y_velocity = 0
-        self.old_x = self.rect.left
-        self.new_x = self.old_x + self.change_x
-        self.old_y = self.rect.top
-        self.new_y = self.old_y + self.change_y
     
     def fired(self):
         self.dirty = 1
@@ -59,6 +55,10 @@ class Projectile(pygame.sprite.DirtySprite):
                 self.y_velocity = 5
 
     def update(self):
+        self.old_x = self.rect.left
+        self.new_x = self.old_x + self.change_x
+        self.old_y = self.rect.top
+        self.new_y = self.old_y + self.change_y
         self.rect.left = self.new_x
         self.rect.top = self.new_y
         self.rect.move_ip((self.x_velocity, self.y_velocity))
