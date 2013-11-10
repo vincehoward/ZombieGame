@@ -21,8 +21,6 @@ class Projectile(pygame.sprite.DirtySprite):
         self.y_velocity = 0
         self.m_x = 0
         self.m_y = 0
-        
-        sprites = pygame.sprite.allsprites
     
     def fired(self):
         self.dirty = 1
@@ -47,8 +45,10 @@ class Projectile(pygame.sprite.DirtySprite):
         scircle = pygame.sprite.collide_circle_ratio(2.5)
         scollided = scircle(self, surv)
 
+        sprites = pygame.sprite.LayeredDirty.sprites
+
         collided =  \
-            functools.partial(pygame.sprite.spritecollide, self)
+            partial(pygame.sprite.spritecollide, self)
         
         for x in sprites:
             if collided (x):
@@ -65,4 +65,3 @@ class Projectile(pygame.sprite.DirtySprite):
                     self.y_velocity = -5
                 elif self.rect.top < m_y:
                     self.y_velocity = 5
-

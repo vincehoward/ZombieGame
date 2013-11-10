@@ -2,6 +2,7 @@
 # Zombie module
 
 import pygame, random
+from functools import partial
 
 green = (0, 255, 0)
 
@@ -20,8 +21,6 @@ class Zombie(pygame.sprite.DirtySprite):
         self.x_velocity = 0
         self.y_velocity = 0
 
-        sprites = pygame.sprite.allsprites
-
     def update(self):
         self.dirty = 1
         
@@ -39,8 +38,10 @@ class Zombie(pygame.sprite.DirtySprite):
 
         self.rect.move_ip((self.x_velocity, self.y_velocity))
 
+        sprites = pygame.sprite.LayeredDirty.sprites
+
         collided =  \
-            functools.partial(pygame.sprite.spritecollide, self)
+            partial(pygame.sprite.spritecollide, self)
         
         for x in sprites:
             if collided (x):

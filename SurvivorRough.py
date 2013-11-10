@@ -2,6 +2,7 @@
 # Survivor module
 
 import pygame
+from functools import partial
 
 white = (255, 255, 255)
 
@@ -21,8 +22,6 @@ class Survivor(pygame.sprite.DirtySprite):
         """
         self.rect.top = y
         self.rect.left = x
-        
-        sprites = pygame.sprite.allsprites
 
     def change_dir(self, event):
         if event.type == pygame.KEYDOWN:
@@ -60,8 +59,10 @@ class Survivor(pygame.sprite.DirtySprite):
         new_y = old_y + self.change_y
         self.rect.top = new_y
 
+        sprites = pygame.sprite.LayeredDirty.sprites
+
         collided =  \
-            functools.partial(pygame.sprite.spritecollide, self)
+            partial(pygame.sprite.spritecollide, self)
         
         for x in sprites:
             if collided (x):
