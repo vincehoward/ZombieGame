@@ -59,12 +59,13 @@ class Survivor(pygame.sprite.DirtySprite):
         new_y = old_y + self.change_y
         self.rect.top = new_y
 
-        sprites = pygame.sprite.LayeredDirty.sprites
+        sprgroup = pygame.sprite.LayeredDirty
+        sprites = sprgroup.sprites
+        surv = pygame.sprite.survivor
 
         collided =  \
-            partial(pygame.sprite.spritecollide, self)
-        
-        for x in sprites:
-            if collided (x):
-                self.rect.left = old_x
-                self.rect.top = old_y
+            pygame.sprite.spritecollideany(surv, sprgroup)
+
+        if sprites in collided:
+            self.rect.left = old_x
+            self.rect.top = old_y

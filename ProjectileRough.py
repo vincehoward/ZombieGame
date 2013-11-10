@@ -37,31 +37,31 @@ class Projectile(pygame.sprite.DirtySprite):
         old_y = self.rect.top
         new_y = old_y + self.change_y
         self.rect.top = new_y
-        
-        surv = pygame.sprite.survivor
 
         self.rect.move_ip((self.x_velocity, self.y_velocity))
-  
+
+        surv = pygame.sprite.survivor
         scircle = pygame.sprite.collide_circle_ratio(2.5)
         scollided = scircle(self, surv)
 
-        sprites = pygame.sprite.LayeredDirty.sprites
+        sprgroup = pygame.sprite.LayeredDirty
+        sprites = sprgroup.sprites
+        proj = pygame.sprite.projectile
 
         collided =  \
-            partial(pygame.sprite.spritecollide, self)
-        
-        for x in sprites:
-            if collided (x):
-                self.dirty = 0
-            elif not scollided:
-                self.dirty = 0
-            else:
-                if  self.rect.left > m_x:
-                    self.x_velocity = -5
-                elif self.rect.left < m_x:
-                    self.x_velocity = 5
+            pygame.sprite.spritecollideany(proj, sprgroup)
 
-                if self.rect.top > m_y:
-                    self.y_velocity = -5
-                elif self.rect.top < m_y:
-                    self.y_velocity = 5
+        if sprites in collided:
+            self.dirty = 0
+        elif not scollided:
+            self.dirty = 0
+        else:
+            if  self.rect.left > m_x:
+                self.x_velocity = -5
+            elif self.rect.left < m_x:
+                self.x_velocity = 5
+
+            if self.rect.top > m_y:
+                self.y_velocity = -5
+            elif self.rect.top < m_y:
+                self.y_velocity = 5

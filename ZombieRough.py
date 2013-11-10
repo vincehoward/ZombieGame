@@ -38,26 +38,27 @@ class Zombie(pygame.sprite.DirtySprite):
 
         self.rect.move_ip((self.x_velocity, self.y_velocity))
 
-        sprites = pygame.sprite.LayeredDirty.sprites
+        sprgroup = pygame.sprite.LayeredDirty
+        sprites = sprgroup.sprites
+        zom = pygame.sprite.zombie
 
         collided =  \
-            partial(pygame.sprite.spritecollide, self)
-        
-        for x in sprites:
-            if collided (x):
-                self.rect.top = old_y
-                self.rect.left = old_x
-            else:
-                if self.rect.top < s_y:
-                    self.y_velocity = 1
-                elif  self.rect.top > s_y:
-                    self.y_velocity = -1
-                else:
-                    self.y_velocity = 0
+            pygame.sprite.spritecollideany(zom, sprgroup)
 
-                if  self.rect.left > s_x:
-                    self.x_velocity = -1
-                elif self.rect.left < s_x:
-                    self.x_velocity = 1
-                else:
-                    self.x_velocity = 0
+        if sprites in collided:
+            self.rect.top = old_y
+            self.rect.left = old_x
+        else:
+            if self.rect.top < s_y:
+                self.y_velocity = 1
+            elif  self.rect.top > s_y:
+                self.y_velocity = -1
+            else:
+                self.y_velocity = 0
+
+            if  self.rect.left > s_x:
+                self.x_velocity = -1
+            elif self.rect.left < s_x:
+                self.x_velocity = 1
+            else:
+                self.x_velocity = 0
