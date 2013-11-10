@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Zombie module
 
 import pygame, random
@@ -8,8 +9,6 @@ class Zombie(pygame.sprite.DirtySprite):
 
     change_x = 0
     change_y = 0
-    zombie_x = 0
-    zombie_y = 0
     
     def __init__(self, x, y):
         pygame.sprite.DirtySprite.__init__(self) 
@@ -21,8 +20,14 @@ class Zombie(pygame.sprite.DirtySprite):
         self.x_velocity = 0
         self.y_velocity = 0
 
-    def update(self, wallList, s_x, s_y):
+        sprites = pygame.sprite.allsprites
+
+    def update(self):
         self.dirty = 1
+        
+        s = pygame.sprite.survivor.rect
+        s_x = s[0]
+        s_y = s[1]
 
         old_x = self.rect.left
         new_x = old_x + self.change_x

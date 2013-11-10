@@ -27,11 +27,6 @@ def main():
 
     pygame.mouse.set_visible(False)
 
-    s_x = Survivor.survivor_x
-    s_y = Survivor.survivor_y
-    z_x = Zombie.zombie_x
-    z_y = Zombie.zombie_y
-
     done = False
 
     #sprites
@@ -71,7 +66,7 @@ def main():
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if mouseClick == button1:
-                    projectile.fire(s_x, s_y)
+                    projectile.fire()
 
 
         allsprites.update()

@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Map module
 
 import pygame

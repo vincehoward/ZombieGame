@@ -21,8 +21,8 @@ class Projectile(pygame.sprite.DirtySprite):
         self.y_velocity = 0
         self.m_x = 0
         self.m_y = 0
-        sprites = [lwall, twall, rwall, bwall,  \
-                   reticle, zombie, projectile]
+        
+        sprites = pygame.sprite.allsprites
     
     def fired(self):
         self.dirty = 1
@@ -39,11 +39,13 @@ class Projectile(pygame.sprite.DirtySprite):
         old_y = self.rect.top
         new_y = old_y + self.change_y
         self.rect.top = new_y
+        
+        surv = pygame.sprite.survivor
 
         self.rect.move_ip((self.x_velocity, self.y_velocity))
   
         scircle = pygame.sprite.collide_circle_ratio(2.5)
-        scollided = scircle(self, """ survivor here """)
+        scollided = scircle(self, surv)
 
         collided =  \
             functools.partial(pygame.sprite.spritecollide, self)

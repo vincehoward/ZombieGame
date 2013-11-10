@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 # Survivor module
 
 import pygame
@@ -20,6 +21,8 @@ class Survivor(pygame.sprite.DirtySprite):
         """
         self.rect.top = y
         self.rect.left = x
+        
+        sprites = pygame.sprite.allsprites
 
     def change_dir(self, event):
         if event.type == pygame.KEYDOWN:
