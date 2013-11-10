@@ -10,6 +10,10 @@ class Zombie(pygame.sprite.DirtySprite):
 
     change_x = 0
     change_y = 0
+    old_x = 0
+    old_y = 0
+    new_x = 0
+    new_y = 0
     
     def __init__(self, x, y):
         pygame.sprite.DirtySprite.__init__(self) 
@@ -20,34 +24,20 @@ class Zombie(pygame.sprite.DirtySprite):
         self.rect.left = x
         self.x_velocity = 0
         self.y_velocity = 0
+        self.old_x = self.rect.left
+        self.new_x = self.old_x + self.change_x
+        self.old_y = self.rect.top
+        self.new_y = self.old_y + self.change_y
 
-    def update(self):
-        self.dirty = 1
-        
-        s = pygame.sprite.survivor.rect
-        s_x = s[0]
-        s_y = s[1]
-
-        old_x = self.rect.left
-        new_x = old_x + self.change_x
-        self.rect.left = new_x
-
-        old_y = self.rect.top
-        new_y = old_y + self.change_y
-        self.rect.top = new_y
-
-        self.rect.move_ip((self.x_velocity, self.y_velocity))
-
-        sprgroup = pygame.sprite.LayeredDirty
-        sprites = sprgroup.sprites
-        zom = pygame.sprite.zombie
-
+    def collidetest(self, surv, sprgroup):
+        s_x = surv.rect.left
+        s_y = surv.rect.top
         collided =  \
-            pygame.sprite.spritecollideany(zom, sprgroup)
+        pygame.sprite.spritecollideany(self, sprgroup)
 
-        if sprites in collided:
-            self.rect.top = old_y
-            self.rect.left = old_x
+        if collided:
+            self.rect.top = self.old_y
+            self.rect.left = self.old_x
         else:
             if self.rect.top < s_y:
                 self.y_velocity = 1
@@ -62,3 +52,9 @@ class Zombie(pygame.sprite.DirtySprite):
                 self.x_velocity = 1
             else:
                 self.x_velocity = 0
+
+    def update(self):
+        self.dirty = 1
+        self.rect.left = self.new_x
+        self.rect.top = self.new_y
+        self.rect.move_ip((self.x_velocity, self.y_velocity))

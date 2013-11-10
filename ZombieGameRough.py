@@ -46,6 +46,17 @@ def main():
                  twall, rwall, bwall, survivor, \
                  reticle, zombie, projectile))
 
+    survgroup = pygame.sprite.Group()
+    survgroup.add(lwall, twall, rwall, bwall,  \
+                  zombie)
+    zombgroup = pygame.sprite.Group()
+    zombgroup.add(lwall, twall, rwall, bwall,  \
+                  survivor)
+    projgroup = pygame.sprite.Group()
+    projgroup.add(lwall, twall, rwall, bwall,  \
+                  zombie)
+    
+
     allsprites.clear(screen, background)
 
     clock = pygame.time.Clock()
@@ -68,8 +79,10 @@ def main():
                 if mouseClick == button1:
                     projectile.fire()
 
-
         allsprites.update()
+        survivor.collidetest(survgroup)
+        zombie.collidetest(survivor, zombgroup)
+        projectile.collidetest(survivor, projgroup)
         rects = allsprites.draw(screen)
         pygame.display.update(rects)
         
