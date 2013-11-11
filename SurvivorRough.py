@@ -54,7 +54,7 @@ class Survivor(pygame.sprite.DirtySprite):
 
     def collidetest(self, sprgroup):
         collided =  \
-        pygame.sprite.spritecollideany(self, sprgroup)
+            pygame.sprite.spritecollideany(self, sprgroup)
 
         if collided:
             self.rect.left = self.old_x

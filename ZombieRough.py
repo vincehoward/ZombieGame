@@ -29,7 +29,7 @@ class Zombie(pygame.sprite.DirtySprite):
         s_x = surv.rect.left
         s_y = surv.rect.top
         collided =  \
-        pygame.sprite.spritecollideany(self, sprgroup)
+            pygame.sprite.spritecollideany(self, sprgroup)
 
         if collided:
             self.rect.top = self.old_y
