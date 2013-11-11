@@ -14,7 +14,6 @@ class Survivor(pygame.sprite.DirtySprite):
     old_y = 0
     new_x = 0
     new_y = 0
-    ratio = 0
 
     def __init__(self, x, y):
         pygame.sprite.DirtySprite.__init__(self)
