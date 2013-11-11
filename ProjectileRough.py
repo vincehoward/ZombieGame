@@ -15,6 +15,7 @@ class Projectile(pygame.sprite.DirtySprite):
     old_y = 0
     new_x = 0
     new_y = 0
+    radius = 0
     
     def __init__(self, x, y):
         pygame.sprite.DirtySprite.__init__(self) 
@@ -34,7 +35,7 @@ class Projectile(pygame.sprite.DirtySprite):
 
     def collidetest(self, surv, sprgroup):
         scircle = pygame.sprite.collide_circle_ratio(2.5)
-        scollided = scircle(self, surv)
+        scollided = pygame.sprite.collide_circle(self, scircle)
 
         collided =  \
             pygame.sprite.spritecollideany(self, sprgroup)
@@ -62,5 +63,3 @@ class Projectile(pygame.sprite.DirtySprite):
         self.rect.left = self.new_x
         self.rect.top = self.new_y
         self.rect.move_ip((self.x_velocity, self.y_velocity))
-
-
