@@ -76,8 +76,8 @@ def main():
                 survivor.change_dir(event)
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
-                if mouseClick == button1:
-                    projectile.fire()
+                if event.key == button1:
+                    projectile.fired()
 
         allsprites.update()
         survivor.collidetest(survgroup)

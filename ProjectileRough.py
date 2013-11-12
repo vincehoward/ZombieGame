@@ -34,16 +34,18 @@ class Projectile(pygame.sprite.DirtySprite):
         self.m_y = mousePos[1]
 
     def collidetest(self, surv, sprgroup):
+        srvgrp = pygame.sprite.Group()
+        srvgrp.add(surv)
         scircle = pygame.sprite.collide_circle_ratio
         scollided =  \
-            pygame.sprite.spritecollide(self, surv, False, scircle(2.5))
+            pygame.sprite.spritecollide(self, srvgrp, False, scircle(5.0))
 
         collided =  \
             pygame.sprite.spritecollideany(self, sprgroup)
 
         if collided:
             self.dirty = 0
-        elif not scollided:
+        elif not (surv in scollided):
             self.dirty = 0
         else:
             if  self.rect.left > self.m_x:
