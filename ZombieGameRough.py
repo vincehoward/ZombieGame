@@ -55,7 +55,6 @@ def main():
     projgroup = pygame.sprite.Group()
     projgroup.add(lwall, twall, rwall, bwall,  \
                   zombie)
-    
 
     allsprites.clear(screen, background)
 
@@ -66,6 +65,8 @@ def main():
         mousePos = pygame.mouse.get_pos()
         m_x = mousePos[0]
         m_y = mousePos[1]
+        s_x = survivor.rect.left
+        s_y = survivor.rect.top
         mouseClick = pygame.mouse.get_pressed()
 
         for event in pygame.event.get():
@@ -77,7 +78,7 @@ def main():
 
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 if event.button == button1:
-                    projectile.fired()
+                    projectile.fired(s_x, s_y)
 
         allsprites.update()
         survivor.collidetest(survgroup)

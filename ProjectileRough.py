@@ -28,12 +28,14 @@ class Projectile(pygame.sprite.DirtySprite):
         self.y_velocity = 0
         self.fired = 0
     
-    def fired(self):
+    def fired(self, x, y):
         if not self.fired:
             self.fired = 1
             mousePos = pygame.mouse.get_pos()
             self.m_x = mousePos[0]
             self.m_y = mousePos[1]
+            self.new_x = x
+            self.new_y = y
 
     def collidetest(self, surv, sprgroup):
         srvgrp = pygame.sprite.Group()
@@ -47,7 +49,7 @@ class Projectile(pygame.sprite.DirtySprite):
 
         if collided:
             self.dirty = 0
-        elif not (surv in scollided):
+        elif surv not in scollided:
             self.dirty = 0
         else:
             if  self.rect.left > self.m_x:
