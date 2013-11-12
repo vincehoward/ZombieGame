@@ -26,12 +26,14 @@ class Projectile(pygame.sprite.DirtySprite):
         self.rect.left = x
         self.x_velocity = 0
         self.y_velocity = 0
+        self.fired = 0
     
     def fired(self):
-        self.dirty = 1
-        mousePos = pygame.mouse.get_pos()
-        self.m_x = mousePos[0]
-        self.m_y = mousePos[1]
+        if not self.fired:
+            self.fired = 1
+            mousePos = pygame.mouse.get_pos()
+            self.m_x = mousePos[0]
+            self.m_y = mousePos[1]
 
     def collidetest(self, surv, sprgroup):
         srvgrp = pygame.sprite.Group()
@@ -59,10 +61,12 @@ class Projectile(pygame.sprite.DirtySprite):
                 self.y_velocity = 5
 
     def update(self):
-        self.old_x = self.rect.left
-        self.new_x = self.old_x + self.change_x
-        self.old_y = self.rect.top
-        self.new_y = self.old_y + self.change_y
-        self.rect.left = self.new_x
-        self.rect.top = self.new_y
-        self.rect.move_ip((self.x_velocity, self.y_velocity))
+        if self.fired:
+            self.dirty = 1
+            self.old_x = self.rect.left
+            self.new_x = self.old_x + self.change_x
+            self.old_y = self.rect.top
+            self.new_y = self.old_y + self.change_y
+            self.rect.left = self.new_x
+            self.rect.top = self.new_y
+            self.rect.move_ip((self.x_velocity, self.y_velocity))
