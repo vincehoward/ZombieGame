@@ -63,8 +63,6 @@ class Projectile(pygame.sprite.DirtySprite):
                 self.y_velocity = 5
 
     def update(self):
-        if self.fired:
-            self.dirty = 1
             self.old_x = self.rect.left
             self.new_x = self.old_x + self.change_x
             self.old_y = self.rect.top
