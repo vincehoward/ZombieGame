@@ -76,9 +76,8 @@ def main():
             elif event.type == pygame.KEYDOWN or pygame.KEYUP:
                 survivor.change_dir(event)
 
-            elif event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == button1:
-                    projectile.fired(s_x, s_y)
+            elif mouseClick[0]:
+                projectile.fired(s_x, s_y)
 
         allsprites.update()
         survivor.collidetest(survgroup)
