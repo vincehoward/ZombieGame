@@ -77,7 +77,7 @@ def main():
                 survivor.change_dir(event)
 
             if mouseClick[0]:
-                projectile.fired(s_x, s_y)
+                projectile.fire(s_x, s_y)
 
         allsprites.update()
         survivor.collidetest(survgroup)
