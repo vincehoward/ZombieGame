@@ -76,7 +76,7 @@ def main():
             elif event.type == pygame.KEYDOWN or pygame.KEYUP:
                 survivor.change_dir(event)
 
-            elif mouseClick[0]:
+            if mouseClick[0]:
                 projectile.fired(s_x, s_y)
 
         allsprites.update()
