@@ -28,7 +28,7 @@ class Projectile(pygame.sprite.DirtySprite):
         self.y_velocity = 0
         self.fired = 0
     
-    def fired(self, x, y):
+    def fire(self, x, y):
         if not self.fired:
             self.fired = 1
             mousePos = pygame.mouse.get_pos()
